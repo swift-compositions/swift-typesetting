@@ -109,7 +109,7 @@ extension Typesetting.Text {
         let within = measure ?? widest
         self.lines = runs.enumerated().map { number, run in
             let baseline = 0 - Double(number) * step
-            let indent = Self.indent(alignment, of: run.width, in: within)
+            let indent = alignment.indent(of: run.width, in: within, direction: .leftToRight)
             let glyphs = run.range.map { position in
                 let index = run.indices[position]
                 return Typesetting.Glyph(
@@ -146,16 +146,6 @@ extension Typesetting.Text {
             throw .font(error)
         }
         try self.init(string, font: font, size: size, measure: measure, alignment: alignment, leading: leading, tracking: tracking, figures: figures)
-    }
-
-    /// How far from the left of a measure a line of a width starts under an alignment: 0 for `leading`, half
-    /// what the line leaves of the measure for `center`, and all of it for `trailing`.
-    static func indent(_ alignment: Horizontal.Alignment, of width: Double, in measure: Double) -> Double {
-        switch alignment {
-        case .leading: 0
-        case .center: (measure - width) / 2
-        case .trailing: measure - width
-        }
     }
 }
 
@@ -195,7 +185,7 @@ extension Typesetting.Text {
     /// The point on the first line's level at the left end, the middle or the right end of the measure: the
     /// point a text is put at or turned about.
     public func point(at anchor: Horizontal.Alignment, level: Typesetting.Level = .baseline) -> Typesetting.Plane.Point<2> {
-        Typesetting.Plane.Point<2>([Self.indent(anchor, of: 0, in: measure), level.height(in: metrics)])
+        Typesetting.Plane.Point<2>([anchor.indent(of: 0, in: measure, direction: .leftToRight), level.height(in: metrics)])
     }
 
     /// The size at which the widest line is as wide as a measure, and at most `maximum`.
