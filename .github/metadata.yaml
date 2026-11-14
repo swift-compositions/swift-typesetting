@@ -1,0 +1,9 @@
+description: "Typesetting for Swift: a string in a font at a size set as glyph outlines at places in lines, with the measures of the font and the lines."
+topics:
+  - compositions
+  - typesetting
+  - typography
+  - fonts
+homepage: "https://swift-institute.org"
+readme:
+  family: E
