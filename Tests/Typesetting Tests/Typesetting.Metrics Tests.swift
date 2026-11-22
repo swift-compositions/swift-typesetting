@@ -9,7 +9,7 @@ extension `Typesetting Tests` {
 
         @Test
         func `Cap height and x-height are the font's, at the size`() throws {
-            let font = Tests.typeset(os2: ISO_14496_22.OS2(version: 4, sxHeight: 450, sCapHeight: 650))
+            let font = Tests.typeset(os2: ISO.`14496`.`22`.OS2(version: 4, sxHeight: 450, sCapHeight: 650))
             let metrics = try Typesetting.Metrics(font: font, size: 100)
             #expect(metrics.size == 100)
             #expect(metrics.cap == 65)
@@ -27,7 +27,7 @@ extension `Typesetting Tests` {
             let absent = try Typesetting.Metrics(font: Tests.typeset(), size: 10)
             #expect(absent.cap == 7)
             #expect(absent.ex == 5)
-            let early = try Typesetting.Metrics(font: Tests.typeset(os2: ISO_14496_22.OS2(version: 1)), size: 10)
+            let early = try Typesetting.Metrics(font: Tests.typeset(os2: ISO.`14496`.`22`.OS2(version: 1)), size: 10)
             #expect(early.cap == 7 && early.ex == 5)
         }
 
@@ -36,7 +36,7 @@ extension `Typesetting Tests` {
             let plain = try Typesetting.Metrics(font: Tests.font(), size: 10)
             #expect(plain.cap == plain.ascent)
             #expect(plain.ex == plain.cap)
-            let capitals = ISO_14496_22.FontFile(sketches: [.init(advance: 500, contours: [Tests.capital])], mapping: [0x48: 0])
+            let capitals = ISO.`14496`.`22`.FontFile(sketches: [.init(advance: 500, contours: [Tests.capital])], mapping: [0x48: 0])
             #expect(try Typesetting.Metrics(font: capitals, size: 10).ex == 7)
         }
 
@@ -44,9 +44,9 @@ extension `Typesetting Tests` {
         func `A monospaced font's pitch is the space's advance`() throws {
             #expect(try Typesetting.Metrics(font: Tests.typeset(), size: 100).pitch == nil)
             #expect(try Typesetting.Metrics(font: Tests.typeset().fixed, size: 100).pitch == 30)
-            let monospaced = ISO_14496_22.OS2(version: 0, panose: [2, 0, 0, 9, 0, 0, 0, 0, 0, 0])
+            let monospaced = ISO.`14496`.`22`.OS2(version: 0, panose: [2, 0, 0, 9, 0, 0, 0, 0, 0, 0])
             #expect(try Typesetting.Metrics(font: Tests.typeset(os2: monospaced), size: 100).pitch == 30)
-            let spaceless = ISO_14496_22.FontFile(sketches: [.init(advance: 450)], mapping: [:]).fixed
+            let spaceless = ISO.`14496`.`22`.FontFile(sketches: [.init(advance: 450)], mapping: [:]).fixed
             #expect(try Typesetting.Metrics(font: spaceless, size: 100).pitch == 45)
         }
 

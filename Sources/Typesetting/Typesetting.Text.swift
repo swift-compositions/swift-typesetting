@@ -33,7 +33,7 @@ extension Typesetting.Text {
     /// `figures` sets the digits proportional, tabular or in cells with the characters among them.
     public init(
         _ string: String,
-        font: ISO_14496_22.FontFile,
+        font: ISO.`14496`.`22`.FontFile,
         size: Double,
         measure: Double? = nil,
         alignment: Horizontal.Alignment = .leading,
@@ -65,7 +65,7 @@ extension Typesetting.Text {
             let indices = scalars.map { font.glyphIndex(for: $0.value) ?? 0 }
             let shares = scalars.map { figures.share(of: $0) }
             for index in indices where outlines[index] == nil {
-                do throws(ISO_14496_22.Outline.Error) {
+                do throws(ISO.`14496`.`22`.Outline.Error) {
                     outlines[index] = try font.outline(for: index).transformed(by: sized, to: Typesetting.Space.self)
                 } catch {
                     throw .outline(error)
@@ -81,7 +81,7 @@ extension Typesetting.Text {
             for position in indices.indices {
                 var advance = units[position]
                 if position + 1 < indices.count, shares[position] == nil, shares[position + 1] == nil {
-                    do throws(ISO_14496_22.FontFile.ParsingError) {
+                    do throws(ISO.`14496`.`22`.FontFile.ParsingError) {
                         advance += try font.kerning(left: indices[position], right: indices[position + 1]).underlying
                     } catch {
                         throw .font(error)
@@ -139,9 +139,9 @@ extension Typesetting.Text {
         tracking: Double = 0,
         figures: Typesetting.Figures = .proportional
     ) throws(Typesetting.Error) {
-        let font: ISO_14496_22.FontFile
-        do throws(ISO_14496_22.FontFile.ParsingError) {
-            font = try ISO_14496_22.FontFile(data: bytes)
+        let font: ISO.`14496`.`22`.FontFile
+        do throws(ISO.`14496`.`22`.FontFile.ParsingError) {
+            font = try ISO.`14496`.`22`.FontFile(data: bytes)
         } catch {
             throw .font(error)
         }

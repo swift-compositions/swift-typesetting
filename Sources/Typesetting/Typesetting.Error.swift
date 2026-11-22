@@ -4,10 +4,10 @@ extension Typesetting {
     /// Why a string could not be set.
     public enum Error: Swift.Error, Sendable, Hashable {
         /// The font's bytes do not parse, or its kerning data is damaged.
-        case font(ISO_14496_22.FontFile.ParsingError)
+        case font(ISO.`14496`.`22`.FontFile.ParsingError)
 
         /// A glyph's outline cannot be read.
-        case outline(ISO_14496_22.Outline.Error)
+        case outline(ISO.`14496`.`22`.Outline.Error)
 
         /// The size is not a positive, finite number.
         case size

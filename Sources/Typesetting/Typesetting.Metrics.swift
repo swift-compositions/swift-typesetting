@@ -38,13 +38,13 @@ extension Typesetting.Metrics {
     /// top of the capital H and the lowercase x where it gives none. A font that has neither falls back to the
     /// ascent for the cap height and to the cap height for the x-height. A monospaced font's pitch is the
     /// advance of the space (U+0020), or of glyph 0 when it maps no space.
-    public init(font: ISO_14496_22.FontFile, size: Double) throws(Typesetting.Error) {
+    public init(font: ISO.`14496`.`22`.FontFile, size: Double) throws(Typesetting.Error) {
         guard size > 0, size.isFinite else { throw .size }
         guard font.unitsPerEm > 0 else { throw .units }
         let scale = size / Double(font.unitsPerEm)
         let ascent = Double(font.ascender)
         let measured: (cap: Int16?, ex: Int16?)
-        do throws(ISO_14496_22.Outline.Error) {
+        do throws(ISO.`14496`.`22`.Outline.Error) {
             measured = (try font.sCapHeight, try font.sxHeight)
         } catch {
             throw .outline(error)
@@ -62,7 +62,7 @@ extension Typesetting.Metrics {
     }
 
     /// The widest advance of the ten digits U+0030 to U+0039, in the font's units.
-    static func figure(of font: ISO_14496_22.FontFile) -> UInt16 {
+    static func figure(of font: ISO.`14496`.`22`.FontFile) -> UInt16 {
         (0x30...0x39).map { (scalar: UInt32) in font.advanceWidth(for: font.glyphIndex(for: scalar) ?? 0) }.max() ?? 0
     }
 }

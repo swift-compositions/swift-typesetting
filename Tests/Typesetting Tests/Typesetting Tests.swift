@@ -23,8 +23,8 @@ extension `Typesetting Tests` {
 
     /// Glyph 0 is a box, 1 is "A", 2 is "V", 3 is the space, 4 is "B" and 5 is U+0301. "A" and "V" kern both
     /// ways, and "A" before the space.
-    static func font(unitsPerEm: UInt16 = 1000) -> ISO_14496_22.FontFile {
-        ISO_14496_22.FontFile(
+    static func font(unitsPerEm: UInt16 = 1000) -> ISO.`14496`.`22`.FontFile {
+        ISO.`14496`.`22`.FontFile(
             sketches: [
                 .init(advance: 500, contours: [box]), .init(advance: 600, contours: [triangle]),
                 .init(advance: 600, contours: [wedge]), .init(advance: 300), .init(advance: 700, contours: [box, triangle]),
@@ -45,8 +45,8 @@ extension `Typesetting Tests` {
     /// Glyph 0 is a box, 1 is "A", 2 is "V", 3 the space, 4 "H" (a box 700 high), 5 "x" (a box 500 high),
     /// 6 "1" (advance 400), 7 "0" (advance 600) and 8 "8" (advance 550). The other digits are glyph 0, of
     /// advance 500. "1" and "0" kern both ways, as do "A" and "V".
-    static func typeset(os2: ISO_14496_22.OS2? = nil) -> ISO_14496_22.FontFile {
-        ISO_14496_22.FontFile(
+    static func typeset(os2: ISO.`14496`.`22`.OS2? = nil) -> ISO.`14496`.`22`.FontFile {
+        ISO.`14496`.`22`.FontFile(
             sketches: [
                 .init(advance: 500, contours: [box]), .init(advance: 600, contours: [triangle]),
                 .init(advance: 600, contours: [wedge]), .init(advance: 300), .init(advance: 700, contours: [capital]),
