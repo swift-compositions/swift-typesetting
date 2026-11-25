@@ -2,6 +2,8 @@
 
 Use this package when you set a string in a font at a size and need the result as values: glyph outlines at places in lines, and the measures of the font and of the lines (ascent, descent, leading, cap height, x-height, line widths, the box of the ink). Start from `Typesetting.Text(_:font:size:measure:alignment:leading:tracking:figures:)` with a font parsed by swift-iso-14496-22, or from the font's bytes with `init(_:bytes:...)`. A `Typesetting.Text` holds `lines` of `Typesetting.Glyph`s, each with its outline as a `Typesetting.Plane.Path` of swift-geometry, and its `metrics`. `circled(center:radius:start:side:anchor:level:)` and `along(_:tolerance:anchor:level:)` set the glyphs on a circle or a path. The package draws nothing: swift-picture turns a text into picture elements, and any other renderer takes the paths. Reading a font is swift-iso-14496-22's; line alignment is swift-layout's `Horizontal.Alignment` and its `indent(of:in:direction:)`, left to right.
 
+`Typesetting File` (the `File` trait, on by default) reads a font from a file: `` ISO.`14496`.`22`.FontFile(reading:) ``.
+
 ## Laws
 
 - A text is set in its own plane, `Typesetting.Plane`, swift-geometry's with y up, as the font has it: the first line's baseline is y 0, each later line one `leading` lower, and x 0 is the left of the measure. A renderer whose y points down negates y.

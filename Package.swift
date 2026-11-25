@@ -5,7 +5,14 @@ let package = Package(
     name: "swift-typesetting",
     platforms: [.macOS(.v27), .iOS(.v27), .tvOS(.v27), .watchOS(.v27), .visionOS(.v27)],
     products: [
-        .library(name: "Typesetting", targets: ["Typesetting"])
+        .library(name: "Typesetting", targets: ["Typesetting"]),
+        .library(name: "Typesetting File", targets: ["Typesetting File"]),
+    ],
+    traits: [
+        // On by default: Xcode drops a trait from a workspace member when it re-plans the package
+        // (swift-institute/Issues#123).
+        .default(enabledTraits: ["File"]),
+        .trait(name: "File", description: "Typesetting File: a font read from a file through swift-file-system"),
     ],
     dependencies: [
         .package(url: "https://github.com/swift-atoms/swift-angle.git", branch: "main"),
@@ -16,6 +23,8 @@ let package = Package(
         .package(url: "https://github.com/swift-atoms/swift-matrix.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-numeric.git", branch: "main"),
         .package(url: "https://github.com/swift-atoms/swift-vector.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-path.git", branch: "main"),
+        .package(url: "https://github.com/swift-compositions/swift-file-system.git", branch: "main"),
         .package(url: "https://github.com/swift-iso/swift-iso-14496-22.git", branch: "main"),
         .package(url: "https://github.com/swift-molecules/swift-layout.git", branch: "main"),
     ],
@@ -35,10 +44,21 @@ let package = Package(
                 .product(name: "Vector", package: "swift-vector"),
             ]
         ),
+        .target(
+            name: "Typesetting File",
+            dependencies: [
+                .target(name: "Typesetting"),
+                .product(name: "File System", package: "swift-file-system", condition: .when(traits: ["File"])),
+                .product(name: "ISO 14496-22", package: "swift-iso-14496-22"),
+                .product(name: "Path", package: "swift-path", condition: .when(traits: ["File"])),
+            ]
+        ),
         .testTarget(
             name: "Typesetting Tests",
             dependencies: [
                 .target(name: "Typesetting"),
+                .target(name: "Typesetting File"),
+                .product(name: "Path", package: "swift-path"),
                 .product(name: "ISO 14496-22 Test Support", package: "swift-iso-14496-22"),
                 .product(name: "Numeric", package: "swift-numeric"),
                 .product(name: "Vector", package: "swift-vector"),
