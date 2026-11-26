@@ -202,3 +202,14 @@ extension `Typesetting Tests`.`A text is glyph outlines at places` {
         }
     }
 }
+
+extension `Typesetting Tests`.`A text is glyph outlines at places` {
+    @Test
+    func `A text fitted to a measure is set smaller, a twentieth at a time, and no further than its least size`() throws {
+        let whole = try Typesetting.Text("AB", font: Tests.font(), size: 20)
+        #expect(try Typesetting.Text("AB", font: Tests.font(), size: 20, fitting: whole.width, least: 1) == whole)
+        let fitted = try Typesetting.Text("AB", font: Tests.font(), size: 20, fitting: whole.width * 0.96, least: 1)
+        #expect(fitted == (try Typesetting.Text("AB", font: Tests.font(), size: 19)))
+        #expect(try Typesetting.Text("AB", font: Tests.font(), size: 20, fitting: 0, least: 20) == whole)
+    }
+}
