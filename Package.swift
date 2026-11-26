@@ -9,9 +9,6 @@ let package = Package(
         .library(name: "Typesetting File", targets: ["Typesetting File"]),
     ],
     traits: [
-        // On by default: Xcode drops a trait from a workspace member when it re-plans the package
-        // (swift-institute/Issues#123).
-        .default(enabledTraits: ["File"]),
         .trait(name: "File", description: "Typesetting File: a font read from a file through swift-file-system"),
     ],
     dependencies: [
