@@ -2,12 +2,7 @@
     public import File_System
     public import ISO_14496_22
     public import Path
-    @_exported public import Typesetting
-
-    extension Typesetting {
-        /// A font kept in a file.
-        public enum File {}
-    }
+    public import Typesetting
 
     extension Typesetting.File {
         /// Why a file gives no font.
