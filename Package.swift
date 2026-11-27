@@ -9,7 +9,7 @@ let package = Package(
         .library(name: "Typesetting File", targets: ["Typesetting File"]),
     ],
     traits: [
-        .trait(name: "File", description: "Typesetting File: a font read from a file through swift-file-system"),
+        .trait(name: "File", description: "Typesetting File: a font read from a file through swift-file-system")
     ],
     dependencies: [
         .package(url: "https://github.com/swift-atoms/swift-angle.git", branch: "main"),
